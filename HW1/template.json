@@ -1,0 +1,101 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "f2938820-ad8a-453f-8d5a-b247ef03fe61": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 870,
+                    "y": 130
+                },
+                "z": 0,
+                "embeds": [],
+                "isassociatedwith": [
+                    "0abe9f61-df75-4ef7-b3a2-53ce55637a27"
+                ]
+            },
+            "0abe9f61-df75-4ef7-b3a2-53ce55637a27": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 670,
+                    "y": 130
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "21212b0f-8b01-48d9-88ec-c2f744f0a007": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 1030,
+                    "y": 130
+                },
+                "z": 0,
+                "embeds": []
+            }
+        }
+    },
+    "Resources": {
+        "WebServerInstance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "InstanceType": "t2.micro",
+                "ImageId": "ami-08962a4068733a2b6",
+                "KeyName": {
+                    "Ref": "KeyPair"
+                },
+                "SecurityGroupIds": [
+                    {
+                        "Ref": "SecurityGroup"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "f2938820-ad8a-453f-8d5a-b247ef03fe61"
+                }
+            }
+        },
+        "SecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Enable SSH & HTTP",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 22,
+                        "ToPort": 22,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 5000,
+                        "ToPort": 5000,
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "0abe9f61-df75-4ef7-b3a2-53ce55637a27"
+                }
+            }
+        }
+    },
+    "Parameters": {
+        "KeyPair": {
+            "Description": "Name of an EC2 KeyPair to enable SSH access to the instance.",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+        }
+    },
+    "Outputs": {}
+}
